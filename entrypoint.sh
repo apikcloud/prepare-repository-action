@@ -2,7 +2,7 @@
 
 ADDONS_PATH=/github/workspace
 
-echo "flatten submodules"
+echo "Flatten submodules"
 
 git -C "${ADDONS_PATH}" config -f .gitmodules --get-regexp '^submodule\..*\.path$' |
     while read -r KEY MODULE_PATH
@@ -16,6 +16,7 @@ git -C "${ADDONS_PATH}" config -f .gitmodules --get-regexp '^submodule\..*\.path
 
                 if [ -f "${DIR}/requirements.txt" ]
                 then
+                    echo "Remove ${DIR}/requirements.txt"
                     rm -rf "${DIR}/requirements.txt"
                 fi
 
@@ -30,7 +31,7 @@ git -C "${ADDONS_PATH}" config -f .gitmodules --get-regexp '^submodule\..*\.path
 
     done
 
-echo "clean addons"
+echo "Clean folders"
 
 files=("README.md")
 dirs=("setup")
