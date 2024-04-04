@@ -26,7 +26,7 @@ git -C "${ADDONS_PATH}" config -f .gitmodules --get-regexp '^submodule\..*\.path
 
 echo "clean addons"
 
-files=("Dockerfile" "README.md")
+files=("README.md")
 dirs=("setup")
 
 for name in ${files[@]}; do
