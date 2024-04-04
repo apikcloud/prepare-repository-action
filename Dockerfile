@@ -3,6 +3,6 @@ FROM alpine:3.10
 RUN apk update && apk add git
 
 COPY entrypoint.sh /entrypoint.sh
-COPY scripts /scripts
+COPY bin/* /usr/bin
 
 ENTRYPOINT ["/entrypoint.sh"]
