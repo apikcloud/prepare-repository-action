@@ -13,6 +13,12 @@ git -C "${ADDONS_PATH}" config -f .gitmodules --get-regexp '^submodule\..*\.path
         then
             if [ "$(ls -A $DIR)" ]; then
                 echo "move $DIR to $ADDONS_PATH"
+
+                if [ -f "${DIR}/requirements.txt" ]
+                then
+                    rm -rf "${DIR}/requirements.txt"
+                fi
+
                 cp -rf "${DIR}"/* "${ADDONS_PATH}"
             else
                 echo "$DIR is Empty"
