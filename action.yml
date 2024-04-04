@@ -1,0 +1,16 @@
+name: 'Prepare Repository'
+description: 'Prepare repository for build'
+inputs:
+  flatten:
+    description: 'Flatten Submodules'
+    required: true
+    default: 'true'
+  clean:
+    description: 'Clean'
+    required: true
+    default: 'true'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.flatten }}
