@@ -1,18 +1,18 @@
 #!/bin/bash
 
-ADDONS_PATH=/github/workspace
+WORKDIR=/github/workspace
 
 echo "Flatten submodules"
 
-git -C "${ADDONS_PATH}" config -f .gitmodules --get-regexp '^submodule\..*\.path$' |
+git -C "${WORKDIR}" config -f .gitmodules --get-regexp '^submodule\..*\.path$' |
     while read -r KEY MODULE_PATH
     do
-        DIR="$ADDONS_PATH/$MODULE_PATH"
+        DIR="$WORKDIR/$MODULE_PATH"
 
         if [ -d "$DIR" ]
         then
             if [ "$(ls -A $DIR)" ]; then
-                echo "move $DIR to $ADDONS_PATH"
+                echo "move $DIR to $WORKDIR"
 
                 if [ -f "${DIR}/requirements.txt" ]
                 then
@@ -20,7 +20,7 @@ git -C "${ADDONS_PATH}" config -f .gitmodules --get-regexp '^submodule\..*\.path
                     rm -rf "${DIR}/requirements.txt"
                 fi
 
-                cp -rf "${DIR}"/* "${ADDONS_PATH}"
+                cp -rf "${DIR}"/* "${WORKDIR}"
             else
                 echo "$DIR is Empty"
             fi
@@ -37,19 +37,19 @@ files=("README.md")
 dirs=("setup")
 
 for name in ${files[@]}; do
-    if [ -f "${ADDONS_PATH}/${name}" ]
+    if [ -f "${WORKDIR}/${name}" ]
     then
-        rm -rf "${ADDONS_PATH}/${name}"
+        rm -rf "${WORKDIR}/${name}"
     fi
 done
 
 for name in ${dirs[@]}; do
-    if [ -d "${ADDONS_PATH}/${name}" ]
+    if [ -d "${WORKDIR}/${name}" ]
     then
-        rm -rf "${ADDONS_PATH}/${name}"
+        rm -rf "${WORKDIR}/${name}"
     fi
 done
 
 # Clean dot filles
-cd "$ADDONS_PATH"
+cd "$WORKDIR"
 rm -rf .[!.]* ..?*
